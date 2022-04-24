@@ -1,0 +1,16 @@
+{
+	"name": "Fluttetr GQL Starter",	
+	"dockerComposeFile": "docker-compose.yaml",
+	"service": "workspace",
+	"workspaceFolder": "/workspace",
+	"settings": {},
+	"extensions": [
+		"Dart-Code.dart-code",
+		"Dart-Code.Flutter",
+		"FelixAngelov.bloc",
+		"blaxou.freezed",
+		"andreasblech.better-tests"
+	],
+	"postAttachCommand": 
+		"cd /workspace/mobile && flutter pub get && cd /workspace/postgraphile && npm i"
+}

@@ -1,0 +1,27 @@
+#These docker-composes are for development purposes only; 
+#deployment is done through pulumi.
+version: "3.8"
+
+x-environment:
+    &default-environment
+    POSTGRES_USER: vscode
+    POSTGRES_PASSWORD: notsecure
+    POSTGRES_DB: tutorial
+services:
+    db:
+        image: "postgres:13"
+        restart: unless-stopped
+        environment: *default-environment
+        ports:
+            - 5432:5432
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+    workspace:
+      build: .
+      tty: true
+      user: vscode
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ..:/workspace
+volumes:
+  pgdata:

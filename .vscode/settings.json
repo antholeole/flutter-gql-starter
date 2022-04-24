@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "mobile": true,
+        "postgraphile": true,
+    }
+}
