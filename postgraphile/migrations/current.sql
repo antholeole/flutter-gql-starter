@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS TABLE_NAME (
+    id UUID PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
+    username VARCHAR
+);

@@ -1,0 +1,37 @@
+#These docker-composes are for development purposes only; 
+#deployment is done through pulumi.
+version: "3.8"
+
+
+x-environment:
+    &default-environment
+    POSTGRES_USER: vscode
+    POSTGRES_PASSWORD: notsecure
+    POSTGRES_DB: mydb
+    POSTGRES_HOST: db
+    POSTGRES_PORT: 5432
+services:
+    db: #name must be the same as POSTGRES_HOST
+        image: "postgres:13"
+        restart: always
+        environment: *default-environment
+        ports:
+            - 5433:5432
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+    shadow_db:
+        image: "postgres:13"
+        restart: always
+        environment: *default-environment
+        ports:
+            - 5434:5432
+        volumes:
+            - pgshadow:/var/lib/postgresql/data
+    postgraphile:
+        build: ./postgraphile
+        ports:
+            - 8080:8080
+        environment: *default-environment
+volumes:
+  pgdata:
+  pgshadow:

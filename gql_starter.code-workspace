@@ -1,7 +1,20 @@
 {
+    "launch": {
+        "configurations": [
+        ]
+    },
     "tasks": {
         "version": "2.0.0",
         "tasks": [
+            {
+                "type": "shell",
+                "label": "compose-up-dev",
+                "command": "docker-compose up",
+                "presentation": {
+                  "reveal": "always",
+                  "panel": "new"
+                }
+              },
             {
                 "command": "flutter",
                 "args": [
@@ -16,7 +29,11 @@
                 "problemMatcher": [
                     "$dart-build_runner"
                 ],
-                "label": "flutter: watch build runner"
+                "label": "flutter: watch"
+            },
+            {
+                "label": "watch",
+                "dependsOn": ["flutter: watch build runner"]
             }
         ]
     },
