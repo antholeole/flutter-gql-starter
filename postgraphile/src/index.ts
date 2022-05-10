@@ -1,19 +1,45 @@
+import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector'
+import ConnectionFilterPlugin from 'postgraphile-plugin-connection-filter'
 import express from 'express'
-import { postgraphile } from 'postgraphile'
+import { postgraphile, PostGraphileOptions } from 'postgraphile'
 
 const app = express()
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT } = process.env
 const connStr = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`
+
+const config: PostGraphileOptions = process.env.NODE_ENV === 'dev' ? {
+  watchPg: true,
+  showErrorStack: "json",
+  extendedErrors: ["hint","detail","errcode"],
+  graphiql: true,
+  enhanceGraphiql: true,
+  allowExplain: true,
+  exportGqlSchemaPath: "/schema.graphql",
+} : {
+  retryOnInitFail: true,
+  extendedErrors: ["errcode"],
+  graphiql: false,
+  disableQueryLog: true,
+}
 
 app.use(
     postgraphile(
       connStr,
       "public",
       {
-        watchPg: true,
-        graphiql: true,
-        enhanceGraphiql: true,
+        enableQueryBatching: true,
+        ignoreRBAC: false,
+        setofFunctionsContainNulls: false,
+        dynamicJson: true,
+        legacyRelations: "omit",
+        appendPlugins: [PgSimplifyInflectorPlugin, ConnectionFilterPlugin],
+        subscriptions: true,
+        ...config,
       }
     )
   )
+
+app.listen(8080, () => {
+  console.log(`listening on port ${8080}`)
+})
 

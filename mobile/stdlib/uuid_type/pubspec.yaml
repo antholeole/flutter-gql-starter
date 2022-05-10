@@ -1,0 +1,15 @@
+name: uuid_type
+description: A util for UUID's
+version: 1.0.0
+
+environment:
+  sdk: '>=2.16.2 <3.0.0'
+
+
+dependencies:
+  built_value: ^8.2.3
+  json_annotation: ^4.5.0
+  uuid: ^3.0.6
+
+dev_dependencies:
+  lints: ^1.0.0

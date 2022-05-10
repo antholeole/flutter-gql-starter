@@ -1,0 +1,23 @@
+name: gql_client
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=2.16.2 <3.0.0'
+
+
+dependencies:
+  local_value: ^1.1.1
+  ferry: ^0.10.2+2
+  ferry_hive_store: ^0.4.2
+  hive: ^2.1.0
+  gql_http_link: ^0.4.0
+  gql_websocket_link: ^0.3.1
+  local_user:
+    path: ../local_user
+  uuid_type:
+    path: ../uuid_type
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0

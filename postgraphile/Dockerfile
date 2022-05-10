@@ -4,5 +4,6 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
+VOLUME [ "/schema.graphql" ]
 
 CMD [ "npm", "run", "dev" ]

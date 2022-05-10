@@ -8,13 +8,10 @@
         "tasks": [
             {
                 "type": "shell",
-                "label": "compose-up-dev",
-                "command": "docker-compose up",
-                "presentation": {
-                  "reveal": "always",
-                  "panel": "new"
-                }
-              },
+                "label": "bootstrap",
+                "command": "touch ${workspaceRoot}/schema.graphql",
+                "problemMatcher": []
+            },
             {
                 "command": "flutter",
                 "args": [
@@ -33,7 +30,9 @@
             },
             {
                 "label": "watch",
-                "dependsOn": ["flutter: watch build runner"]
+                "dependsOn": [
+                    "flutter: watch build runner"
+                ]
             }
         ]
     },
@@ -50,5 +49,13 @@
             "path": "postgraphile",
             "name": "🐘 Postgraphile"
         }
-    ]
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/node_modules/*": true,
+        },
+        "dart.analysisExcludedFolders": [
+            "${workspaceRoot}/mobile/stdlib/*"
+        ]
+    },
 }

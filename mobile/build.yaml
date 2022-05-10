@@ -1,0 +1,60 @@
+targets:
+  $default:
+    builders:
+      gql_build|ast_builder:
+        enabled: true
+      gql_build|schema_builder:
+        enabled: true
+        options:
+          schema: fe|lib/schema.graphql
+          type_overrides:
+              uuid:
+                  name: UuidType
+                  import: 'package:uuid_type/uuid_type.dart'
+              timestamptz:
+                  name: DateTime
+      gql_build|data_builder:
+        enabled: true
+        options:
+          schema: fe|lib/schema.graphql
+          type_overrides:
+              uuid:
+                  name: UuidType
+                  import: 'package:uuid_type/uuid_type.dart'
+              timestamptz:
+                  name: DateTime
+      gql_build|var_builder:
+        enabled: true
+        options:
+          schema: fe|lib/schema.graphql
+          type_overrides:
+              uuid:
+                  name: UuidType
+                  import: 'package:uuid_type/uuid_type.dart'
+              timestamptz:
+                  name: DateTime
+      gql_build|serializer_builder:
+        enabled: true
+        options:
+          schema: fe|lib/schema.graphql
+          custom_serializers:
+          - import: 'package:uuid_type/uuid_type.dart'
+            name: UuidTypeSerializer
+          - import: 'package:date_time_converter/date_time_converter.dart'
+            name: DateTimeSerializer
+          type_overrides:
+            uuid:
+              import: 'package:uuid_type/uuid_type.dart'
+              name: UuidType
+            timestamptz:
+              name: DateTime
+      ferry_generator|req_builder:
+        enabled: true
+        options:
+          schema: fe|lib/schema.graphql
+          type_overrides:
+            uuid:
+              name: UuidType
+              import: 'package:uuid_type/uuid_type.dart'
+            timestamptz:
+              name: DateTime

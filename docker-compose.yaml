@@ -2,7 +2,6 @@
 #deployment is done through pulumi.
 version: "3.8"
 
-
 x-environment:
     &default-environment
     POSTGRES_USER: vscode
@@ -12,7 +11,7 @@ x-environment:
     POSTGRES_PORT: 5432
 services:
     db: #name must be the same as POSTGRES_HOST
-        image: "postgres:13"
+        image: "postgres:14"
         restart: always
         environment: *default-environment
         ports:
@@ -20,7 +19,7 @@ services:
         volumes:
             - pgdata:/var/lib/postgresql/data
     shadow_db:
-        image: "postgres:13"
+        image: "postgres:14"
         restart: always
         environment: *default-environment
         ports:
@@ -31,6 +30,8 @@ services:
         build: ./postgraphile
         ports:
             - 8080:8080
+        volumes:
+            - ./schema.graphql:/schema.graphql
         environment: *default-environment
 volumes:
   pgdata:
