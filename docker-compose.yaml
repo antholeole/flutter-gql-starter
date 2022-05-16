@@ -8,6 +8,7 @@ x-environment:
     POSTGRES_PASSWORD: notsecure
     POSTGRES_DB: mydb
     POSTGRES_HOST: db
+    JWT_SECRET: ImSecretDontLookAtMe
     POSTGRES_PORT: 5432
 services:
     db: #name must be the same as POSTGRES_HOST
@@ -30,6 +31,7 @@ services:
         build: ./postgraphile
         ports:
             - 8080:8080
+            - 9231:9229
         volumes:
             - ./schema.graphql:/schema.graphql
         environment: *default-environment

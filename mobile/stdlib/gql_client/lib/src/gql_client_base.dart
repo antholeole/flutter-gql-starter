@@ -69,7 +69,7 @@ class GqlClient {
   Stream<TData> request<TData, TVars>(OperationRequest<TData, TVars> request) {
     return _client.request(request).asyncMap((resp) async {
       if (resp.hasErrors) {
-        throw await _bundleException(resp);
+        throw _bundleException(resp);
       } else {
         return resp.data!;
       }

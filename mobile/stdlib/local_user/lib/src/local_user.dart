@@ -16,7 +16,20 @@ class LocalUser extends ChangeNotifier
 
   LocalUserState _state = LocalUserLoadingState();
 
-  LocalUser();
+  /// begins an async process that checks if the user is logged in or not.
+  Future<void> determineState() async {
+    final tokens =
+        await Future.wait([_localRefreshToken.read(), _localUserId.read()]);
+
+    final refreshToken = tokens[0];
+    final userId = tokens[1];
+
+    if (refreshToken == null || userId == null) {
+      logOut();
+    } else {
+      logIn(UuidType(userId), refreshToken);
+    }
+  }
 
   @override
   LocalUserState get value => _state;
@@ -84,7 +97,7 @@ class LocalUser extends ChangeNotifier
     notifyListeners();
   }
 
-  Future<String?> refreshToken() {
+  Future<String?> get refreshToken {
     if (_state is LocalUserLoggedInState) {
       return _localRefreshToken.read();
     } else {

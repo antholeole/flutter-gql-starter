@@ -23,7 +23,7 @@ class TokenManager {
       return null;
     }
 
-    final refreshToken = await _localUser.refreshToken();
+    final refreshToken = await _localUser.refreshToken;
     if (refreshToken == null) {
       throw RefreshFailed.fromMessage(
           'User logged in, but no refresh token saved');
@@ -47,7 +47,8 @@ class RefreshFailed implements Exception {
   RefreshFailed.fromException(Exception e) : message = e.toString();
   RefreshFailed.fromMessage(this.message);
 
+  @override
   String toString() {
-    return "Refresh failed: ${message}";
+    return "Refresh failed: $message";
   }
 }

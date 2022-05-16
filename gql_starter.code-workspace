@@ -1,6 +1,16 @@
 {
     "launch": {
         "configurations": [
+            {
+                "name": "Attach To Postgraphile",
+                "type": "node",
+                "request": "attach",
+                "port": 9231,
+                "address": "localhost",
+                "remoteRoot": "/usr/src/app",
+                "localRoot": "${workspaceRoot:🐘 Postgraphile}",
+                "protocol": "inspecter"
+            }
         ]
     },
     "tasks": {
@@ -52,10 +62,7 @@
     ],
     "settings": {
         "files.exclude": {
-            "**/node_modules/*": true,
-        },
-        "dart.analysisExcludedFolders": [
-            "${workspaceRoot}/mobile/stdlib/*"
-        ]
+            "**/node_modules": true,
+        }
     },
 }
