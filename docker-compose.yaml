@@ -4,30 +4,27 @@ version: "3.8"
 
 x-environment:
     &default-environment
-    POSTGRES_USER: vscode
+    POSTGRES_USER: &pg_user vscode
     POSTGRES_PASSWORD: notsecure
     POSTGRES_DB: mydb
-    POSTGRES_HOST: db
+    POSTGRES_HOST: &pg_host db
     JWT_SECRET: ImSecretDontLookAtMe
     POSTGRES_PORT: 5432
 services:
-    db: #name must be the same as POSTGRES_HOST
-        image: "postgres:14"
+    db:
+        container_name: *pg_host
+        image: gradescope/postgresql-multiple-databases:14.2
         restart: always
         environment: 
-        - *default-environment
+            POSTGRES_MULTIPLE_DATABASES: mydb,shadow_mydb
+            POSTGRES_USER: vscode
+            POSTGRES_PASSWORD: notsecure
+            POSTGRES_HOST: db
+            POSTGRES_PORT: 5432
         ports:
             - 5433:5432
         volumes:
-            - pgdata:/var/lib/postgresql/data
-    shadow_db:
-        image: "postgres:14"
-        restart: always
-        environment: *default-environment
-        ports:
-            - 5434:5432
-        volumes:
-            - pgshadow:/var/lib/postgresql/data
+            - pg_data:/var/lib/postgresql/data
     postgraphile:
         build: ./postgraphile
         ports:
@@ -39,6 +36,5 @@ services:
             - ./schema.graphql:/schema.graphql
         environment: *default-environment
 volumes:
-  pgdata:
-  pgshadow:
+  pg_data:
   postgraphile_modules:

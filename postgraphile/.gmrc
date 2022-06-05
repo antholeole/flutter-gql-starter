@@ -1,4 +1,5 @@
 {
+  "rootConnectionString": "postgres://vscode:notsecure@localhost:5433/postgres",
   "connectionString": "postgres://vscode:notsecure@localhost:5433/mydb",
   "shadowConnectionString": "postgres://vscode:notsecure@localhost:5433/mydb_shadow",
   "afterCurrent":  [],
