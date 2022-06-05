@@ -14,7 +14,8 @@ services:
     db: #name must be the same as POSTGRES_HOST
         image: "postgres:14"
         restart: always
-        environment: *default-environment
+        environment: 
+        - *default-environment
         ports:
             - 5433:5432
         volumes:
@@ -33,8 +34,11 @@ services:
             - 8080:8080
             - 9231:9229
         volumes:
+            - ./postgraphile:/usr/src/app
+            - postgraphile_modules:/user/src/app/node_modules
             - ./schema.graphql:/schema.graphql
         environment: *default-environment
 volumes:
   pgdata:
   pgshadow:
+  postgraphile_modules:

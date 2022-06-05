@@ -8,8 +8,7 @@
                 "port": 9231,
                 "address": "localhost",
                 "remoteRoot": "/usr/src/app",
-                "localRoot": "${workspaceRoot:🐘 Postgraphile}",
-                "protocol": "inspecter"
+                "localRoot": "${workspaceRoot:🐘 Postgraphile}"
             }
         ]
     },

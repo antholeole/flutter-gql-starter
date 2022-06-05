@@ -1,6 +1,7 @@
 {
     "files.exclude": {
         "**/*.gr.dart": true,
+        "**/*.freezed.dart": true
     },
     "dart.analysisExcludedFolders": [
         "stdlib/*"

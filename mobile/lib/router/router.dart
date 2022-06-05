@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile/pages/home/home_page.dart';
-import 'package:mobile/pages/login/login_page.dart';
+import 'package:mobile/pages/login/view/login_page.dart';
 import 'package:mobile/pages/splash/splash_page.dart';
 
 part 'router.gr.dart';

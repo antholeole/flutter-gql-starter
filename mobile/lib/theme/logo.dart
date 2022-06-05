@@ -7,7 +7,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'GQL Starter',
-      style: Theme.of(context).textTheme.headline2,
+      style: Theme.of(context).textTheme.headline4,
     );
   }
 }

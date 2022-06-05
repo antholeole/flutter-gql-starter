@@ -28,7 +28,7 @@ class _$AppRouter extends RootStackRouter {
     LoginRoute.name: (routeData) {
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const LoginPage(),
+          child: WrappedRoute(child: const LoginPage()),
           transitionsBuilder: noAnimationTransition,
           opaque: true,
           barrierDismissible: false);
