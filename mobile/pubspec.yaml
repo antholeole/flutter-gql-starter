@@ -16,13 +16,16 @@ dependencies:
   flutter_bloc: ^8.0.1
   toaster_next: ^1.1.0
 
-  uuid_type: 
+  uuid_type:
     path: ./stdlib/uuid_type
   gql_client:
-    path: ./stdlib/gql_client
+    git:
+      url: https://github.com/antholeole/ants_packages.git
+      path: path/to/kittens
+
 
   # for json conversion
-  date_time_converter: 
+  date_time_converter:
     path: ./stdlib/date_time_converter
   freezed_annotation: ^2.0.3
 
@@ -30,7 +33,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
-  build_runner: ^2.1.8
+  build_runner: ^2.1.11
   auto_route_generator: ^4.0.0
   freezed: ^2.0.3
 

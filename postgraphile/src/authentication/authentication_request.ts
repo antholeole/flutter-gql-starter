@@ -1,18 +1,48 @@
-import { OAuth2Client } from 'google-auth-library'
+import { ExtensionDefinition, gql, makeExtendSchemaPlugin } from 'postgraphile'
 
-
-const client = new OAuth2Client("test")
-const verifyIdToken  = async (googleIdToken: string) => {
-    const ticket = await client.verifyIdToken({
-        idToken: googleIdToken,
-        audience: ['client_id', 'client_id']
-    })
-
-    const payload = ticket.getPayload()
-
-    if (!payload) {
-        throw new Error('no payload for ticket')
-    }
-
-    const userid = payload.sub
+enum AuthenticationSource {
+  Apple = 'Apple',
+  Google = 'Google'
 }
+interface AuthenticationResponse {
+    accessToken: String,
+    refreshToken: String
+}
+
+export const AuthenticatePlugin = makeExtendSchemaPlugin(() => {
+    return <ExtensionDefinition>{
+      typeDefs:  gql`
+        type AuthenticationResponse {
+            accessToken: String,
+            refreshToken: String
+        }
+
+        enum AuthenticationSource {
+            Apple,
+            Google
+        }
+
+        extend type Mutation {
+            authenticate(source: AuthenticationSource, idToken: String): AuthenticationResponse
+        }
+      `,
+      resolvers: {
+        Mutation: {
+            authenticate: (_query, args): AuthenticationResponse => {
+              const { source, idToken } = args as { source: AuthenticationSource, idToken: string }
+
+              switch (source) {
+                case AuthenticationSource.Apple:
+                    throw Error('blah')
+                case AuthenticationSource.Google:
+                    return {
+                      accessToken: 'googl',
+                      refreshToken: "goog" + idToken
+                    }
+              }
+            }
+        }
+      },
+    };
+  });
+

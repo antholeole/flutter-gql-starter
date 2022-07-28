@@ -3,9 +3,10 @@ import ConnectionFilterPlugin from 'postgraphile-plugin-connection-filter'
 import express from 'express'
 import { postgraphile, PostGraphileOptions } from 'postgraphile'
 import { translateAuthenticatedRequest } from './authentication/translate_authenticated_request'
+import { AuthenticatePlugin } from './authentication/authentication_request'
 
 const app = express()
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT } = process.env
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, JWT_SECRET } = process.env
 const connStr = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`
 
 const config: PostGraphileOptions = process.env.NODE_ENV === 'dev' ? {
@@ -36,9 +37,12 @@ app.use(
         setofFunctionsContainNulls: false,
         dynamicJson: true,
         legacyRelations: "omit",
+        jwtSecret: JWT_SECRET,
+        jwtPgTypeIdentifier: "public.jwt_token",
         appendPlugins: [
           PgSimplifyInflectorPlugin, 
           ConnectionFilterPlugin,
+          AuthenticatePlugin
         ],
         subscriptions: true,
         ...config,

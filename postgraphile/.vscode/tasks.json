@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "process",
+            "command": "graphile-migrate",
+            "args": [
+                "watch"
+            ],
+            "isBackground": true,
+            "label": "🐘 graphile migrate watch",
+        },
+    ]
+}
